@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+
+@layer base {
+  :root {
+    --background: 40 33% 98%;
+    --foreground: 222 47% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 14%;
+
+    /* Deep academic navy */
+    --primary: 222 60% 18%;
+    --primary-foreground: 40 33% 98%;
+    --primary-glow: 222 70% 32%;
+
+    /* Warm gold */
+    --secondary: 38 92% 55%;
+    --secondary-foreground: 222 60% 14%;
+
+    --muted: 220 20% 95%;
+    --muted-foreground: 220 10% 40%;
+
+    --accent: 38 95% 60%;
+    --accent-foreground: 222 60% 14%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 70% 38%;
+    --success-foreground: 0 0% 100%;
+
+    --whatsapp: 142 70% 45%;
+
+    --border: 220 18% 88%;
+    --input: 220 18% 90%;
+    --ring: 222 60% 18%;
+
+    --radius: 1rem;
+
+    --gradient-hero: linear-gradient(135deg, hsl(222 60% 14% / 0.85), hsl(222 70% 25% / 0.65));
+    --gradient-gold: linear-gradient(135deg, hsl(38 95% 60%), hsl(32 92% 50%));
+    --gradient-navy: linear-gradient(135deg, hsl(222 60% 18%), hsl(222 70% 32%));
+
+    --shadow-soft: 0 4px 20px -4px hsl(222 60% 18% / 0.12);
+    --shadow-glow: 0 10px 40px -10px hsl(38 92% 55% / 0.5);
+    --shadow-card: 0 8px 30px -12px hsl(222 60% 18% / 0.18);
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+  h1, h2, h3, h4 { @apply font-serif tracking-tight; }
+}
+
+@layer utilities {
+  .gradient-hero { background: var(--gradient-hero); }
+  .gradient-gold { background: var(--gradient-gold); }
+  .gradient-navy { background: var(--gradient-navy); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .transition-smooth { transition: var(--transition-smooth); }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+@keyframes float-pulse {
+  0%, 100% { transform: translateY(0); box-shadow: 0 10px 30px -10px hsl(38 92% 55% / 0.6); }
+  50% { transform: translateY(-4px); box-shadow: 0 18px 40px -10px hsl(38 92% 55% / 0.8); }
+}
+.animate-float-pulse { animation: float-pulse 2.8s ease-in-out infinite; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.6s ease-out both; }
