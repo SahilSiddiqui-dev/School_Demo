@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface Props {
   onEnquire: () => void;
@@ -57,18 +58,20 @@ export const Header = ({ onEnquire }: Props) => {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-40 transition-smooth ${
-        solid ? "bg-background/95 backdrop-blur-md shadow-soft" : "bg-gradient-to-b from-black/40 to-transparent"
+        solid
+          ? "bg-background/80 backdrop-blur-md border-b border-border/40 shadow-soft"
+          : "bg-gradient-to-b from-black/55 to-transparent"
       }`}
     >
       <div className="container flex items-center justify-between h-16 md:h-20">
         <button
           onClick={() => goTo("home")}
-          className={`flex items-center gap-2 font-serif font-bold text-lg md:text-xl ${
+          className={`flex items-center gap-2 font-serif font-bold text-lg md:text-xl transition-colors ${
             overHero ? "text-white" : "text-primary"
           }`}
         >
           <span className="w-9 h-9 rounded-full gradient-navy flex items-center justify-center">
-            <GraduationCap className="w-5 h-5 text-secondary" />
+            <GraduationCap className="w-5 h-5 text-secondary animate-pulse" />
           </span>
           Akash Academy
         </button>
@@ -80,49 +83,56 @@ export const Header = ({ onEnquire }: Props) => {
               <button
                 key={l.id}
                 onClick={() => goTo(l.id)}
-                className={`text-sm font-medium transition-smooth ${
+                className={`text-sm font-medium transition-smooth relative py-1 ${
                   overHero
                     ? isActive
                       ? "text-secondary"
                       : "text-white/90 hover:text-secondary"
                     : isActive
-                      ? "text-primary"
+                      ? "text-primary font-semibold"
                       : "text-muted-foreground hover:text-primary"
                 }`}
               >
                 {l.label}
+                {!overHero && isActive && (
+                  <span className="absolute bottom-0 inset-x-0 h-0.5 bg-secondary rounded-full animate-fade-in" />
+                )}
               </button>
             );
           })}
+          <ThemeToggle />
           <Button variant="hero" size="sm" onClick={onEnquire}>
             Enquire Now
           </Button>
         </nav>
 
-        <button
-          className={`md:hidden p-2 ${overHero ? "text-white" : "text-primary"}`}
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <button
+            className={`p-2 transition-colors ${overHero ? "text-white" : "text-primary"}`}
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {open && (
-        <div className="md:hidden bg-background border-t border-border">
-          <div className="container py-4 flex flex-col gap-1">
+        <div className="md:hidden bg-background/95 backdrop-blur-lg border-t border-border/50 animate-fade-up">
+          <div className="container py-5 flex flex-col gap-2">
             {links.map((l) => (
               <button
                 key={l.id}
                 onClick={() => goTo(l.id)}
-                className={`py-2 text-left text-base font-medium ${
-                  active === l.id ? "text-primary" : "text-muted-foreground"
+                className={`py-2 text-left text-base font-medium border-b border-border/30 ${
+                  active === l.id ? "text-primary font-semibold" : "text-muted-foreground"
                 }`}
               >
                 {l.label}
               </button>
             ))}
-            <Button variant="hero" className="mt-2" onClick={() => { setOpen(false); onEnquire(); }}>
+            <Button variant="hero" className="mt-3 w-full" onClick={() => { setOpen(false); onEnquire(); }}>
               Enquire Now
             </Button>
           </div>
