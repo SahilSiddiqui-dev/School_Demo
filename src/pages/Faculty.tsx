@@ -6,6 +6,7 @@ import biology from "@/assets/teacher-biology.webp";
 import cs from "@/assets/teacher-cs.webp";
 import { Button } from "@/components/ui/button";
 import { GraduationCap } from "lucide-react";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 interface Props {
   onEnquire: () => void;
@@ -21,53 +22,59 @@ const faculty = [
 ];
 
 export const Faculty = ({ onEnquire }: Props) => (
-  <main className="pt-28 pb-20">
-    <section className="container text-center max-w-2xl mx-auto mb-14">
-      <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Our Faculty</span>
-      <h1 className="font-serif text-4xl md:text-5xl font-bold text-primary mt-2 mb-4">
-        Teachers your child will remember for life.
-      </h1>
-      <p className="text-muted-foreground text-base md:text-lg">
-        Qualified, patient, and curious — meet a few of the people who make Akash Academy what it is.
-      </p>
-    </section>
+  <main className="py-20 md:py-28 bg-muted/40 relative overflow-hidden">
+    <div className="absolute inset-0 premium-grid opacity-10 pointer-events-none" />
+    <div className="container relative">
+      <ScrollReveal className="text-center max-w-2xl mx-auto mb-14">
+        <span className="text-secondary font-semibold text-sm tracking-wider uppercase">Our Faculty</span>
+        <h1 className="font-serif text-4xl md:text-5xl font-bold text-primary mt-2 mb-4">
+          Teachers your child will remember for life.
+        </h1>
+        <p className="text-muted-foreground text-base md:text-lg">
+          Qualified, patient, and curious — meet a few of the people who make Akash Academy what it is.
+        </p>
+      </ScrollReveal>
 
-    <section className="container grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {faculty.map((f) => (
-        <article
-          key={f.name}
-          className="group rounded-2xl bg-card border border-border shadow-soft hover:shadow-card hover:-translate-y-1 transition-smooth overflow-hidden flex flex-col"
-        >
-          <div className="aspect-[4/5] overflow-hidden bg-muted">
-            <img
-              src={f.img}
-              alt={`${f.name}, ${f.subject} teacher at Akash Academy`}
-              loading="lazy"
-              decoding="async"
-              width={768}
-              height={960}
-              className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
-            />
-          </div>
-          <div className="p-5 flex-1 flex flex-col">
-            <span className="text-xs font-semibold uppercase tracking-wider text-secondary-foreground/80">{f.subject}</span>
-            <h2 className="font-serif text-xl font-bold text-primary mt-1">{f.name}</h2>
-            <div className="flex items-start gap-2 mt-2 text-sm text-muted-foreground">
-              <GraduationCap className="w-4 h-4 mt-0.5 shrink-0 text-secondary" />
-              <span>{f.degree}</span>
-            </div>
-            <p className="text-sm text-foreground/80 mt-3 leading-relaxed flex-1">"{f.note}"</p>
-          </div>
-        </article>
-      ))}
-    </section>
-
-    <section className="container mt-16">
-      <div className="rounded-3xl gradient-navy p-10 md:p-14 text-center text-primary-foreground">
-        <h2 className="font-serif text-3xl md:text-4xl font-bold mb-3">Want to meet our teachers in person?</h2>
-        <p className="text-primary-foreground/80 mb-6 max-w-lg mx-auto">Book a guided campus tour and sit in on a live class.</p>
-        <Button variant="hero" size="lg" onClick={onEnquire}>Book a Campus Tour</Button>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {faculty.map((f, index) => (
+          <ScrollReveal key={f.name} delay={index * 100} className="h-full">
+            <article
+              className="group h-full rounded-3xl bg-card border border-border/70 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition-smooth overflow-hidden flex flex-col relative"
+            >
+              <div className="aspect-[4/5] overflow-hidden bg-muted relative">
+                <img
+                  src={f.img}
+                  alt={`${f.name}, ${f.subject} teacher at Akash Academy`}
+                  loading="lazy"
+                  decoding="async"
+                  width={768}
+                  height={960}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-smooth" />
+              </div>
+              <div className="p-6 flex-1 flex flex-col relative">
+                <span className="text-xs font-semibold uppercase tracking-wider text-secondary">{f.subject}</span>
+                <h2 className="font-serif text-xl font-bold text-primary mt-1">{f.name}</h2>
+                <div className="flex items-start gap-2 mt-2 text-sm text-muted-foreground">
+                  <GraduationCap className="w-4 h-4 mt-0.5 shrink-0 text-secondary" />
+                  <span>{f.degree}</span>
+                </div>
+                <p className="text-sm text-foreground/80 mt-3 leading-relaxed flex-1 italic">"{f.note}"</p>
+              </div>
+            </article>
+          </ScrollReveal>
+        ))}
       </div>
-    </section>
+
+      <ScrollReveal className="mt-16">
+        <div className="rounded-3xl gradient-navy p-10 md:p-14 text-center text-primary-foreground shadow-card relative overflow-hidden">
+          <div className="absolute inset-0 premium-grid opacity-10 pointer-events-none" />
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-3">Want to meet our teachers in person?</h2>
+          <p className="text-primary-foreground/80 mb-6 max-w-lg mx-auto">Book a guided campus tour and sit in on a live class.</p>
+          <Button variant="hero" size="lg" onClick={onEnquire}>Book a Campus Tour</Button>
+        </div>
+      </ScrollReveal>
+    </div>
   </main>
 );
